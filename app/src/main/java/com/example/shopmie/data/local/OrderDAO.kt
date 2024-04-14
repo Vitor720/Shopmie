@@ -10,7 +10,7 @@ import com.example.shopmie.data.models.OrderData
 interface OrderDAO {
 
     @Query("SELECT sum(totalAmount) FROM orders")
-    fun getAllOrders(): Double
+    fun getAllOrdersSum(): Double
 
     @Insert
     fun insertOrders(vararg orders: OrderData)

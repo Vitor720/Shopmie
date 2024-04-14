@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Shopmie</string>
+
+    <!--    Home    -->
+    <string name="total_sales_amount">Total de vendas: %s</string>
+    <string name="register_sale">Fazer uma venda</string>
+    
+    <!--    Sales-->
+    <string name="order_number">Numero do pedido: $s</string>
+    <string name="client">Cliente</string>
+    <string name="write_client_name">Escrever o nome do cliente</string>
+    <string name="product">Produto</string>
+    <string name="product_name">Nome do Produto</string>
+    <string name="quantity">Quantidade</string>
+    <string name="value">Valor unitario</string>
+    <string name="total_item_value">Valor total do item s%</string>
+    <string name="include">Incluir</string>
+    <string name="name">Name</string>
+    <string name="total_value">Valor total</string>
+    <string name="total_items_count">Qtd. total de itens: </string>
+    <string name="total_order_value">Valor total do pedido: </string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Salvar</string>
+    <string name="make_order">Fazer uma venda</string>
+
 </resources>

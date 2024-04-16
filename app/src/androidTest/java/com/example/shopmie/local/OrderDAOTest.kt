@@ -40,4 +40,19 @@ class OrderDAOTest {
         val result = sut.getAllOrdersSum()
         Assert.assertEquals(0.00, result, 0.00001)
     }
+
+    @Test
+    fun getLastOrderIDExpected2() {
+        val firstOrder = OrderData(1, "Asus", 100.00)
+        val secondOrder = OrderData(2, "Dell", 200.00)
+        sut.insertOrders(firstOrder, secondOrder)
+        val result = sut.getLastOrderID()
+        Assert.assertEquals(2, result)
+    }
+
+    @Test
+    fun getLastOrderIDExpectedZero() {
+        val result = sut.getLastOrderID()
+        Assert.assertEquals(0, result)
+    }
 }

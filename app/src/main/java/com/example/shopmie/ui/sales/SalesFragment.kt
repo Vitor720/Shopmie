@@ -35,6 +35,15 @@ class SalesFragment : Fragment() {
         setupRecyclerView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        configureView()
+    }
+
+    private fun configureView() {
+        binding?.etClientInput?.editText?.setText(viewModel.client.orEmpty())
+    }
+
     private fun setUpToolbar() {
         binding?.tbSales?.title = getString(R.string.make_order)
 
@@ -54,8 +63,7 @@ class SalesFragment : Fragment() {
         }
 
         binding?.btnSaveOrder?.setOnClickListener {
-            val client = binding?.etClientInput?.editText?.text.toString()
-            viewModel.postSale(client)
+            viewModel.postSale()
         }
 
         binding?.etProductInput?.editText?.addTextChangedListener {
@@ -63,8 +71,8 @@ class SalesFragment : Fragment() {
         }
 
         binding?.etQuantityInput?.editText?.addTextChangedListener {
-            val quantity = binding?.etQuantityInput?.editText?.text.toString().toIntOrNull()
-            val price = it.toString().toDoubleOrNull()
+            val quantity = it.toString().toIntOrNull()
+            val price = binding?.etUnitValueInput?.editText?.text.toString().toDoubleOrNull()
             val total: Double = quantity?.times(price ?: 0.0) ?: 0.0
 
             binding?.tvTotalItemValue?.text = context?.getString(
@@ -72,7 +80,6 @@ class SalesFragment : Fragment() {
                 total.toString()
             )
             verifyProductFieldToEnableInclude()
-
         }
 
         binding?.etUnitValueInput?.editText?.addTextChangedListener {
@@ -86,6 +93,14 @@ class SalesFragment : Fragment() {
             )
 
             verifyProductFieldToEnableInclude()
+        }
+
+        binding?.etClientInput?.editText?.addTextChangedListener {
+            viewModel.client = it.toString()
+        }
+
+        binding?.btnCancel?.setOnClickListener {
+            findNavController().popBackStack()
         }
 
     }
@@ -111,6 +126,9 @@ class SalesFragment : Fragment() {
             )
         }
 
+        viewModel.isOrderDataFilled.observe(viewLifecycleOwner) {
+            binding?.btnSaveOrder?.isEnabled = it
+        }
     }
 
     private fun verifyProductFieldToEnableInclude() {

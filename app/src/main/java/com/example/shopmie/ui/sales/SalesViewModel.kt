@@ -20,22 +20,39 @@ class SalesViewModel(private val useCase: ISalesUseCase): ViewModel() {
     private val totalOrderValue = MutableLiveData<Double>()
     val orderValue = totalOrderValue as LiveData<Double>
 
+    val isOrderDataFilled: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
+    var client: String? = null
+        set(value) {
+            updateIsOrderFilled()
+            field = value
+        }
 
     fun addProduct(name: String?, quantity: Int?, price: Double?) {
         val items = orderProducts.value?.toMutableList() ?: mutableListOf()
-        items.add(getOrderUI(name, quantity, price))
 
+        if (name == null || quantity == null || price == null) return
+        
+        items.add(OrderItemUI(name, quantity, price))
         orderProducts.value = items
+        updateIsOrderFilled()
     }
 
-    fun postSale(client: String?,) {
+    private fun updateIsOrderFilled(){
+        val isClientValid = !client.isNullOrBlank()
+        val isProductListValid = orderProducts.value.isNullOrEmpty()
+
+        isOrderDataFilled.value = isClientValid && isProductListValid
+    }
+
+    fun postSale() {
         val items = products.value
         val orderID = orderID.value
 
-        viewModelScope.launch(Dispatchers.IO) {
+        if (client == null || items == null || orderID == null) return
 
-            useCase.postNewSale(orderID!!, client!!, items!!)
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.postNewSale(orderID, client.toString(), items)
         }
     }
 
@@ -45,7 +62,4 @@ class SalesViewModel(private val useCase: ISalesUseCase): ViewModel() {
         }
     }
 
-    private fun getOrderUI(nome: String?, quantity: Int?, price: Double?): OrderItemUI {
-        return OrderItemUI(nome!!, quantity!!, price!!)
-    }
 }

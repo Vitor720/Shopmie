@@ -40,7 +40,7 @@ class SalesViewModel(private val useCase: ISalesUseCase): ViewModel() {
 
     private fun updateIsOrderFilled(){
         val isClientValid = !client.isNullOrBlank()
-        val isProductListValid = orderProducts.value.isNullOrEmpty()
+        val isProductListValid = !orderProducts.value.isNullOrEmpty()
 
         isOrderDataFilled.value = isClientValid && isProductListValid
     }

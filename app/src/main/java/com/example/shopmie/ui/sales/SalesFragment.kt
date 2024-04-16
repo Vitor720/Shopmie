@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopmie.R
 import com.example.shopmie.databinding.FragmentSalesBinding
 import com.example.shopmie.ui.adapters.SalesAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class SalesFragment : Fragment() {
 
@@ -60,10 +63,13 @@ class SalesFragment : Fragment() {
             val quantity = binding?.etQuantityInput?.editText?.text.toString().toIntOrNull()
             val price = binding?.etUnitValueInput?.editText?.text.toString().toDoubleOrNull()
             viewModel.addProduct(productName, quantity, price)
+
+            clearProductFields()
         }
 
         binding?.btnSaveOrder?.setOnClickListener {
             viewModel.postSale()
+            findNavController().popBackStack()
         }
 
         binding?.etProductInput?.editText?.addTextChangedListener {
@@ -103,6 +109,15 @@ class SalesFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+    }
+
+    private fun clearProductFields() {
+        binding?.etProductInput?.editText?.setText("")
+        binding?.etQuantityInput?.editText?.setText("")
+        binding?.etUnitValueInput?.editText?.setText("")
+
+        val inputManager = getSystemService<InputMethodManager>(requireContext(), InputMethodManager::class.java)
+        inputManager?.hideSoftInputFromWindow(binding?.etUnitValueInput?.windowToken, 0)
     }
 
     private fun setUpObservers() {

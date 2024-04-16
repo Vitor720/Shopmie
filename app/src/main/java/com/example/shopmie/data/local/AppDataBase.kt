@@ -9,4 +9,5 @@ import com.example.shopmie.data.models.SalesProduct
 abstract class AppDataBase(): RoomDatabase(){
 
     abstract fun getSalesDao(): OrderDAO
+    abstract fun getProductsDao(): ProductDAO
 }

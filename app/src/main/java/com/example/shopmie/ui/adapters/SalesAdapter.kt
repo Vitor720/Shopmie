@@ -1,8 +1,10 @@
 package com.example.shopmie.ui.adapters
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shopmie.R
 import com.example.shopmie.databinding.OrderItemTableRowBinding
 import com.example.shopmie.domain.model.OrderItemUI
 
@@ -20,7 +22,9 @@ class SalesAdapter() : RecyclerView.Adapter<SalesAdapter.SalesViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SalesViewHolder, position: Int) {
-        val item = items[position] ?: return
+        val item = items[position]
+
+        if (item == null) return holder.bindHeader()
 
         holder.bind(item)
     }
@@ -35,11 +39,43 @@ class SalesAdapter() : RecyclerView.Adapter<SalesAdapter.SalesViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: OrderItemUI) {
-            binding.tvProductName.text = item.name
-            binding.tvProductQty.text = item.quantity.toString()
-            binding.tvProductPrice.text = item.price.toString()
-            binding.tvProductTotal.text = item.totalItemAmount.toString()
+            binding.tvProductName.apply {
+                text = item.name
+                setTypeface(null, Typeface.NORMAL)
+            }
+            binding.tvProductQty.apply {
+                text = item.quantity.toString()
+                setTypeface(null, Typeface.NORMAL)
+            }
+            binding.tvProductPrice.apply {
+                text = item.price.toString()
+                setTypeface(null, Typeface.NORMAL)
+            }
+            binding.tvProductTotal.apply {
+                text = item.totalItemAmount.toString()
+                setTypeface(null, Typeface.NORMAL)
+            }
+        }
 
+        fun bindHeader() {
+            binding.apply {
+                tvProductName.apply {
+                    text = root.context.getString(R.string.name)
+                    setTypeface(null, Typeface.BOLD)
+                }
+                tvProductTotal.apply {
+                    text = root.context.getString(R.string.total_value)
+                    setTypeface(null, Typeface.BOLD)
+                }
+                tvProductPrice.apply {
+                    text = root.context.getString(R.string.value)
+                    setTypeface(null, Typeface.BOLD)
+                }
+                tvProductQty.apply {
+                    text = root.context.getString(R.string.quantity)
+                    setTypeface(null, Typeface.BOLD)
+                }
+            }
         }
     }
 }

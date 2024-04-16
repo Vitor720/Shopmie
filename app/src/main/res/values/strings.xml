@@ -6,19 +6,21 @@
     <string name="register_sale">Fazer uma venda</string>
     
     <!--    Sales-->
-    <string name="order_number">Numero do pedido: $s</string>
+    <string name="order_number">Numero do pedido: %s</string>
     <string name="client">Cliente</string>
     <string name="write_client_name">Escrever o nome do cliente</string>
     <string name="product">Produto</string>
     <string name="product_name">Nome do Produto</string>
     <string name="quantity">Quantidade</string>
     <string name="value">Valor unitario</string>
-    <string name="total_item_value">Valor total do item s%</string>
+    <string name="total_item_value">Valor total do item R$ %s</string>
     <string name="include">Incluir</string>
-    <string name="name">Name</string>
+    <string name="name">Nome</string>
     <string name="total_value">Valor total</string>
-    <string name="total_items_count">Qtd. total de itens: </string>
-    <string name="total_order_value">Valor total do pedido: </string>
+    <string name="total_items_count">Qtd. total de itens: %s</string>
+    <string name="total_items_count_zero">Qtd. total de itens: 0</string>
+    <string name="total_order_value">Valor total do pedido: R$ %s</string>
+    <string name="total_order_value_zero">Valor total do pedido: R$ 0,0</string>
     <string name="cancel">Cancelar</string>
     <string name="save">Salvar</string>
     <string name="make_order">Fazer uma venda</string>
